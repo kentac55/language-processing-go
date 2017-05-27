@@ -1,4 +1,4 @@
-package language_processing_go
+package exercise
 
 func P01(s string) string {
 	res := ""
