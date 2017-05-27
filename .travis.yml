@@ -1,9 +1,12 @@
 language: go
 sudo: false
 go:
-  - tip
+- tip
 before_install:
-  - go get github.com/mattn/goveralls
+- go get github.com/mattn/goveralls
 script:
-  - go test -v ./src
-  - $HOME/gopath/bin/goveralls -service=travis-ci
+- go test -v ./src
+- "$HOME/gopath/bin/goveralls -service=travis-ci"
+notifications:
+  slack:
+    secure: DshO/sqWnP9DWHreeZQGNG2J8pec3EK9I5PFWDVppmrFl8vlOJEFi4O1MbWCeW/RRs+GiLHMjNLVUJJCZgICCouO8eegS/z3veW7JAxpj85GHdfyuZhwWNG5n72NqB66hUa/Iuu2C+EK/ZEWd1JlNWxVbuqJ6XYiBGv0gjpLejAxOwrLkQbBJxXBqJY/9UYpe409Diba/iq7WTRf1j7/vqBM+YcOSpP2JjA2/8NwSOccf7WKdP/l2NHjTVolz1vSFOz9dWjpcBc1NTpCTAABPd3G+qgL3LkoovU9eJwTxa5RiNE9y9quv6tsjth5BinIGcPZ+M2Tm+/1W/Kpy2jctEcNo4TwQC2k+BJT/CBYa0ygjpd/wst+TXQAdkCsRQfMyZEB+6WE8LwkMjUq3uuk9C72cUNVgK+czuyIcKtc31NEdMGEI1YdA80KCPqgSUrxygrl8XKpW7dragYsy0KuWqVI6OTKchzVFzUenujfTFxPk6irBcgGN2S5TGBWzf5+Z+4zltrxxfqY05E+Z/6I//Hj6wwae9rFYLByqu3eTKwQUMsFvieHsL77SEihvN/2jsjWHtMG4k5aSEf7OsR/RBzp9T6GUsc/932eEgxnl2wZK04FwlrpBbwcHKtsypTgR/p9JJNK3jMmVnzhCMnpUfP95zsjhsTBTc7qHgzkXL8=
