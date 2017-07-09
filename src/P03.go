@@ -1,8 +1,8 @@
 package exercise
 
 import (
-	"strings"
 	"regexp"
+	"strings"
 )
 
 func P03(s string) []int {
