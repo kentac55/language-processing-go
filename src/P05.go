@@ -7,7 +7,7 @@ type biGram struct {
 	Letter []string
 }
 
-func P05(s string) *biGram {
+func P05(s string) biGram {
 	slice := strings.Split(s, " ")
 	words := [][]string{}
 	letters := []string{}
@@ -17,11 +17,16 @@ func P05(s string) *biGram {
 		}
 		words = append(words, []string{v, slice[i+1]})
 	}
-	for i := range s {
-		if i >= len(s)-1 {
-			break
+	for _, v := range strings.Split(s, " ") {
+		if len(v) < 2 {
+			continue
 		}
-		letters = append(letters, s[i:i+2])
+		for i := range v {
+			if i >= len(v)-1 {
+				break
+			}
+			letters = append(letters, v[i:i+2])
+		}
 	}
-	return &biGram{words, letters}
+	return biGram{words, letters}
 }
