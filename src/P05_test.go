@@ -7,13 +7,12 @@ import (
 
 func TestP05(t *testing.T) {
 	i := "I am an NLPer"
-	o := &biGram{
+	o := biGram{
 		[][]string{
 			{"I", "am"}, {"am", "an"}, {"an", "NLPer"},
 		},
 		[]string{
-			"I ", " a", "am", "m ", " a", "an",
-			"n ", " N", "NL", "LP", "Pe", "er",
+			"am", "an", "NL", "LP", "Pe", "er",
 		},
 	}
 	if x := P05(i); !reflect.DeepEqual(x, o) {
