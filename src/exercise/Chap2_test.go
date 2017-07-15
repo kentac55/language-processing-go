@@ -1,7 +1,7 @@
 package exercise
 
 import (
-	"language-processing-go/src/tools"
+	"github.com/kentac55/language-processing-go/src/tools"
 	"os/exec"
 	"strconv"
 	"strings"
