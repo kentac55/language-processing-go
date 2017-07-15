@@ -11,6 +11,7 @@ func TestP00(t *testing.T) {
 		t.Errorf("P00(%v) = %v, want %v", i, x, o)
 	}
 }
+
 func TestP01(t *testing.T) {
 	const i, o = "パタトクカシーー", "パトカー"
 	if x := P01(i); x != o {
@@ -28,6 +29,7 @@ func TestP02(t *testing.T) {
 		t.Errorf("P02(%v, %v) expected throw error but nil", invalidStrA, invalidStrB)
 	}
 }
+
 func TestP03(t *testing.T) {
 	const i = "Now I need a drink, alcoholic of course, after the heavy lectures involving quantum mechanics."
 	o := []int{3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9}
@@ -51,7 +53,7 @@ func TestP04(t *testing.T) {
 }
 func TestP05(t *testing.T) {
 	i := "I am an NLPer"
-	o := BiGram{
+	o := Bigrams{
 		[][]string{
 			{"I", "am"}, {"am", "an"}, {"an", "NLPer"},
 		},
@@ -124,6 +126,7 @@ func TestP06(t *testing.T) {
 		t.Errorf("Y should not have %v key", "se")
 	}
 }
+
 func TestP07(t *testing.T) {
 	const (
 		x = 12
@@ -135,12 +138,14 @@ func TestP07(t *testing.T) {
 		t.Errorf("P07(%v, %v, %v) = %v, want %v", x, y, z, res, o)
 	}
 }
+
 func TestP08(t *testing.T) {
 	const i = "testTEST<>?_"
 	if P08(P08(i)) != i {
 		t.Errorf("P08(P08()) should return same str but different")
 	}
 }
+
 func TestP09(t *testing.T) {
 	const i = "I couldn't believe that I could actually understand what I was reading : the phenomenal power of the human mind ."
 	const o = "I c'nlduot beielve that I cuold aualctly unaserntdd what I was ridneag : the phmnenaoel peowr of the huamn mind ."
