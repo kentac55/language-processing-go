@@ -1,17 +1,40 @@
 package exercise
 
 import (
-	"github.com/kentac55/language-processing-go/src/tools"
+	"io/ioutil"
+	"net/http"
+	"os"
 	"os/exec"
 	"strconv"
 	"strings"
 	"testing"
 )
 
+func MyWget(path string, url string) error {
+	if _, err := os.Stat(path); err == nil {
+		return nil
+	}
+	rs, err := http.Get(url)
+	if err != nil {
+		return err
+	}
+	body, err := ioutil.ReadAll(rs.Body)
+	if err != nil {
+		return err
+	}
+	file, err := os.OpenFile(path, os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+	file.Write(body)
+	return nil
+}
+
 func TestP10(t *testing.T) {
 	const path = "/tmp/hightemp.txt"
 	const url = "http://www.cl.ecei.tohoku.ac.jp/nlp100/data/hightemp.txt"
-	if err := tools.MyWget(path, url); err != nil {
+	if err := MyWget(path, url); err != nil {
 		t.Errorf("Error on wget: %v", err)
 	}
 	out, err := exec.Command("wc", "-l", path).Output()
@@ -32,7 +55,7 @@ func TestP10(t *testing.T) {
 func TestP11(t *testing.T) {
 	const path = "/tmp/hightemp.txt"
 	const url = "http://www.cl.ecei.tohoku.ac.jp/nlp100/data/hightemp.txt"
-	if err := tools.MyWget(path, url); err != nil {
+	if err := MyWget(path, url); err != nil {
 		t.Errorf("Error on wget: %v", err)
 	}
 	o, err := exec.Command("sed", "-r", "-e", "s/\t/ /g", path).Output()
