@@ -5,7 +5,7 @@ go:
 before_install:
 - go get github.com/mattn/goveralls
 script:
-- go test -v ./src
+- go test -v ./src/exercise
 - "$HOME/gopath/bin/goveralls -service=travis-ci"
 notifications:
   slack:
