@@ -66,6 +66,30 @@ func P12(p string, col1Path string, col2Path string) {
 
 // P13 is a solution of `13. col1.txtとcol2.txtをマージ`
 // 12で作ったcol1.txtとcol2.txtを結合し，元のファイルの1列目と2列目をタブ区切りで並べたテキストファイルを作成せよ．確認にはpasteコマンドを用いよ．
+func P13(p string, col1Path string, col2Path string) {
+	res := []string{}
+	col1File, _ := os.Open(col1Path)
+	defer col1File.Close()
+	col1Sc := bufio.NewScanner(col1File)
+	col2File, _ := os.Open(col2Path)
+	defer col2File.Close()
+	col2Sc := bufio.NewScanner(col2File)
+	for col1Sc.Scan() {
+		res = append(res, col1Sc.Text())
+	}
+	i := 0
+	for col2Sc.Scan() {
+		res[i] += "\t" + col2Sc.Text()
+		i++
+	}
+	resStr := ""
+	for _, v := range res {
+		resStr += v + "\n"
+	}
+	resFile, _ := os.OpenFile(p, os.O_CREATE|os.O_WRONLY, 0644)
+	defer resFile.Close()
+	resFile.Write([]byte(resStr))
+}
 
 // -- P14 --
 
