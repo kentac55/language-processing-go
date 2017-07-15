@@ -66,3 +66,54 @@ func TestP11(t *testing.T) {
 		t.Errorf("expect: %v, actually: %v", o, x)
 	}
 }
+
+func TestP12(t *testing.T) {
+	const path = "/tmp/hightemp.txt"
+	const url = "http://www.cl.ecei.tohoku.ac.jp/nlp100/data/hightemp.txt"
+	if err := MyWget(path, url); err != nil {
+		t.Errorf("Error on wget: %v", err)
+	}
+	const col1Path = "/tmp/col1Str.txt"
+	const col2Path = "/tmp/col2Str.txt"
+	P12(path, col1Path, col2Path)
+	expect := ""
+	actually := ""
+
+	// COLUMN 1
+	col1Output, err := exec.Command("cut", "-f", "1", path).Output()
+	if err != nil {
+		t.Errorf("failure to exec command")
+	}
+	col1File, err := os.Open(col1Path)
+	if err != nil {
+		t.Errorf("cannot open: %v", col1Path)
+	}
+	col1Byte, err := ioutil.ReadAll(col1File)
+	if err != nil {
+		t.Errorf("cannot read binary: %v", col1Path)
+	}
+	expect = string(col1Output)
+	actually = string(col1Byte)
+	if string(col1Byte) != string(col1Output) {
+		t.Errorf("expect: \n%v\nactually: \n%v", expect, actually)
+	}
+
+	// COLUMN 2
+	col2Output, err := exec.Command("cut", "-f", "2", path).Output()
+	if err != nil {
+		t.Errorf("failure to exec command")
+	}
+	col2File, err := os.Open(col2Path)
+	if err != nil {
+		t.Errorf("cannot open: %v", col2Path)
+	}
+	col2Byte, err := ioutil.ReadAll(col2File)
+	if err != nil {
+		t.Errorf("cannot read binary: %v", col2Path)
+	}
+	expect = string(col2Output)
+	actually = string(col2Byte)
+	if string(col2Byte) != string(col2Output) {
+		t.Errorf("expect: \n%v\nactually: \n%v", expect, actually)
+	}
+}
