@@ -94,7 +94,7 @@ func TestP12(t *testing.T) {
 	}
 	expect = string(col1Output)
 	actually = string(col1Byte)
-	if string(col1Byte) != string(col1Output) {
+	if expect != actually {
 		t.Errorf("expect: \n%v\nactually: \n%v", expect, actually)
 	}
 
@@ -113,7 +113,31 @@ func TestP12(t *testing.T) {
 	}
 	expect = string(col2Output)
 	actually = string(col2Byte)
-	if string(col2Byte) != string(col2Output) {
+	if expect != actually {
+		t.Errorf("expect: \n%v\nactually: \n%v", expect, actually)
+	}
+}
+
+func TestP13(t *testing.T) {
+	const col1Path = "/tmp/col1Str.txt"
+	const col2Path = "/tmp/col2Str.txt"
+	const concatenatePath = "/tmp/concatenate.txt"
+	P13(concatenatePath, col1Path, col2Path)
+	o, err := exec.Command("paste", col1Path, col2Path).Output()
+	if err != nil {
+		t.Errorf("failure to exec command")
+	}
+	concatenateFile, err := os.Open(concatenatePath)
+	if err != nil {
+		t. Errorf("cannot open: %v", concatenatePath)
+	}
+	concatenateByte, err := ioutil.ReadAll(concatenateFile)
+	if err != nil {
+		t.Errorf("cannot read binary: %v", concatenatePath)
+	}
+	expect := string(o)
+	actually := string(concatenateByte)
+	if expect != actually {
 		t.Errorf("expect: \n%v\nactually: \n%v", expect, actually)
 	}
 }
